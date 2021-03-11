@@ -1,2 +1,2 @@
 # osworks-api
-API do OSWorks - Imersão Spring Rest - AlgaWorks
+ Projeto Imersão Spring Rest para Iniciantes - AlgaWorks
