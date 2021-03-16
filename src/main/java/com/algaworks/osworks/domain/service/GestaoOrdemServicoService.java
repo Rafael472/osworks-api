@@ -38,9 +38,16 @@ public class GestaoOrdemServicoService {
 		return ordemServicoRepository.save(ordemServico);
 	}
 	
+	public void finalizar(Long ordemServicoId){
+		OrdemServico ordemServico = buscar(ordemServicoId);
+		
+		ordemServico.finalizar();
+		
+		ordemServicoRepository.save(ordemServico);
+	}
+	
 	public Comentario adicionarComentario(Long ordemServicoId, String descricao) {
-		OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de Serviço não encontrada."));
+		OrdemServico ordemServico = buscar(ordemServicoId);
 		
 		Comentario comentario = new Comentario();
 		comentario.setDataEnvio(OffsetDateTime.now());
@@ -48,5 +55,10 @@ public class GestaoOrdemServicoService {
 		comentario.setOrdemServico(ordemServico);
 		
 		return comentarioRepository.save(comentario);
+	}
+	
+	private OrdemServico buscar(Long ordemServicoId) {
+		return ordemServicoRepository.findById(ordemServicoId)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de Serviço não encontrada."));
 	}
 }
